@@ -5,7 +5,8 @@ from django.contrib import auth
 class User(auth.models.AbstractUser):
     USER_TYPE_CHOICES = (
         (1, 'Student'),
-        (2, 'Teacher')
+        (2, 'Teacher'),
+        (3, 'Admin')
     )
 
     user_type = models.PositiveIntegerField(choices=USER_TYPE_CHOICES, default=1)
