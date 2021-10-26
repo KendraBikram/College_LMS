@@ -1,12 +1,10 @@
-from django.shortcuts import render
-import datetime
-from django.contrib.auth.mixins import (LoginRequiredMixin,
-                                        PermissionRequiredMixin)
+from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth.mixins import (LoginRequiredMixin)
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.views import generic
 from django.shortcuts import get_object_or_404
-from users.models import User
+from django.views import generic
 from courses.models import Course, Enrollment
 from assignments.models import Assignment
 from resources.models import Resource
@@ -16,7 +14,7 @@ class CreateCourse(LoginRequiredMixin, generic.CreateView):
     fields = ('course_name', 'course_description')
     model = Course
 
-    def get(self, request,*args, **kwargs):
+    def get(self, request, *args, **kwargs):
         self.object = None
         context_dict = self.get_context_data()
         context_dict.update(user_type=self.request.user.user_type)
@@ -25,7 +23,7 @@ class CreateCourse(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         form.instance.teacher = self.request.user
         return super(CreateCourse, self).form_valid(form)
-    
+
 class CourseDetail(generic.DetailView):
     model = Course
 
@@ -74,3 +72,12 @@ class UnenrollCourse(LoginRequiredMixin, generic.RedirectView):
             enrollment.delete()
             messages.success(self.request, 'You have unenrolled from the course.')
         return super().get(self.request, *args, **kwargs)
+
+@login_required
+def delete_view(request, pk):
+    obj = Course.objects.get(pk=pk)
+    if request.method == "POST":
+        obj.delete()
+        return HttpResponseRedirect(reverse("courses:list"))
+    context = {'course': obj}
+    return render(request, "courses/course_delete.html", context)

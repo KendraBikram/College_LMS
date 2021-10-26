@@ -77,8 +77,13 @@
       </div>
       {% empty %}
         <h6>No Resources</h6>
-      {% endfor %}
+     {% endfor %}
     </ul>
+  </div>
+  <div class ="course_delete">
+      {% if user.user_type == 2 %}
+      <small><a href="{% url 'courses:delete' pk=course.pk %}" class="btn btn-danger btn-large">Delete Course</a></small>
+      {% endif %}
   </div>
 {% endif %}
   

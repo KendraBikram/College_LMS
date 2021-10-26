@@ -1,0 +1,29 @@
+{% extends 'courses/course_base.html' %}
+{% load bootstrap4 %}
+
+{% block title_name %}
+    LMS - Delete Course
+{% endblock title_name %}
+    
+
+{% block main_content %}
+    {% if user.user_type == 2 %}
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Are you sure you want to delete this course?</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Confirm" class="btn btn-success btn-large">
+                    <a href="{% url 'courses:list' %}" class="btn btn-primary btn-large">Cancel</a>
+                </form>
+            </div>
+    </div>
+    {% else %}
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Oops! You need to be Teacher to access this page.</h2>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock main_content %}

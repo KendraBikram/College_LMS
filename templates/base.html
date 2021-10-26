@@ -29,7 +29,7 @@
             {% if user.user_type == 1 %}
                 <span class="sidemenu"><h5 id="side-head"><i class="fa fa-list courses-icon" aria-hidden="true"></i>Your Courses</h5></span>
                 {% for course in list_courses %}
-                    
+
                     {% if user in course.students.all %}
                         <span class="course-item"><a href="{% url 'courses:detail' pk=course.pk %}" >{{course}}</a></span>
                     {% endif %}
