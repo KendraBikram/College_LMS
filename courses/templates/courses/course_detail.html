@@ -80,11 +80,23 @@
      {% endfor %}
     </ul>
   </div>
+
+
+  <div class ="grade">
+      {% if user.user_type == 2  %}
+      <h3>Grades</h3>
+    <div  class="list-group-item list-group-item-action">
+          <h5 class="mb-1"><a href=""> {{course.students.distinct.first}}</a></h5>
+          <h5 class="mb-1"><a href=""> {{course.students.distinct.last}}</a></h5>
+      {% endif %}
+
+  </div>
+
   <div class ="course_delete">
       {% if user.user_type == 2 %}
       <small><a href="{% url 'courses:delete' pk=course.pk %}" class="btn btn-danger btn-large">Delete Course</a></small>
       {% endif %}
   </div>
 {% endif %}
-  
+
 {% endblock main_content %}
