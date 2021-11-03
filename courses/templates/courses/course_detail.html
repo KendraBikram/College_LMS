@@ -85,12 +85,30 @@
       {% if user.user_type == 2  %}
       <h3>Grades</h3>
     <div  class="list-group-item list-group-item-action">
-          <h5 class="mb-1"><a href=""> {{course.students.distinct.first}}</a></h5>
-          <h5 class="mb-1"><a href=""> {{course.students.distinct.last}}</a></h5>
+          <label id="student_name1">{{course.students.distinct.first}}</label>
+          <input type="text" id="student_grade1" name="student_name1"><br><br></input>
+          <label id="student_name2">{{course.students.distinct.last}}</label>
+          <input type="text" id="student_grade2" name="student_name2"><br><br></input>
+          <button onclick="myGrade()">Submit</button>
+
+
+          <script>
+          function myGrade(name1, name2) {
+            var str = document.getElementById("student_name1").innerHTML;
+            var str2 = document.getElementById("student_name2").innerHTML;
+
+            var str3 = document.getElementById("student_grade1").value;
+            var str4 = document.getElementById("student_grade2").value;
+
+
+            alert(str + ": " + str3);
+            alert(str2 + ": " + str4);
+
+          }
+          </script>
       {% endif %}
 
   </div>
-
   <div class ="course_delete">
       {% if user.user_type == 2 %}
       <small><a href="{% url 'courses:delete' pk=course.pk %}" class="btn btn-danger btn-large">Delete Course</a></small>
