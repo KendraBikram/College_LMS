@@ -3,7 +3,7 @@
 Django LMS is a Learning Management System using the framework, you guessed it right, Django. The system gives teachers and students a simple platform to upload resources and assignments.
 
 # Motivation
-The project started as a challenge to improve and test my knowledge of Django. The initial version of this project was created within 5 days.
+The project started as a challenge to improve and test my knowledge of Django.
 
 # Tech/Framework Used
 * Python
